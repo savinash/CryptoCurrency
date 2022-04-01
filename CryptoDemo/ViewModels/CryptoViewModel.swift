@@ -9,13 +9,14 @@ import Foundation
 
 protocol CrytoListViewModelProtocol {
     func onReceiveResposeSuccess()
-    func onReceiveResponseFailure()
+    func onReceiveResponseFailure(error : NSError?)
 }
 
 /*
  ViewModel for CryptoList
  */
 struct CryptoListViewModel {
+    
     var bitcoins = [Bitcoin]()
     
     var numberOfSections : Int {
@@ -28,6 +29,8 @@ struct CryptoListViewModel {
         let bitcoin = self.bitcoins[index]
         return CryptoViewModel(bitcoin)
     }
+    
+    
 }
 
 /*
