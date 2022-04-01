@@ -8,8 +8,8 @@
 import Foundation
 
 
-// Push the code on feature branch
-protocol CrytoListViewModelProtocol {
+// Protocol for response status
+protocol CryptoListViewModelProtocol {
     func onReceiveResposeSuccess()
     func onReceiveResponseFailure(error : NSError?)
 }
@@ -17,10 +17,12 @@ protocol CrytoListViewModelProtocol {
 /*
  ViewModel for CryptoList
  */
-struct CryptoListViewModel {
+class CryptoListViewModel : NSObject {
     
     var bitcoins = [Bitcoin]()
-    
+    var delegate : CryptoListViewModelProtocol? = nil
+    var webServiceManager = Webservice()
+
     var numberOfSections : Int {
         return 1
     }
@@ -31,8 +33,23 @@ struct CryptoListViewModel {
         let bitcoin = self.bitcoins[index]
         return CryptoViewModel(bitcoin)
     }
-    
-    
+}
+
+extension CryptoListViewModel {
+    func performUpdate(){
+        let url = URL(string: Constants.Urls.criptoURL)
+        print(Constants.Urls.criptoURL)
+        webServiceManager.getCryptoData(url: url, completionHandler: { bitCoinArray, error in
+            DispatchQueue.main.async {
+                if let bitCoinArray = bitCoinArray {
+                    self.bitcoins = bitCoinArray
+                    self.delegate?.onReceiveResposeSuccess()
+                }else if let error = error {
+                    self.delegate?.onReceiveResponseFailure(error: error)
+                }
+            }
+        })
+    }
 }
 
 /*
