@@ -7,6 +7,8 @@
 
 import Foundation
 
+
+// Push the code on feature branch
 protocol CrytoListViewModelProtocol {
     func onReceiveResposeSuccess()
     func onReceiveResponseFailure(error : NSError?)
