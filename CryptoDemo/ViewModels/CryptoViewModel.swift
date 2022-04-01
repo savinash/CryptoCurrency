@@ -7,6 +7,11 @@
 
 import Foundation
 
+protocol CrytoListViewModelProtocol {
+    func onReceiveResposeSuccess()
+    func onReceiveResponseFailure()
+}
+
 /*
  ViewModel for CryptoList
  */
