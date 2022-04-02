@@ -82,7 +82,7 @@ extension CryptoListViewController : UITableViewDelegate, UITableViewDataSource 
 // Extension for delegate methods of CryptoListViewModelProtocol - response success/failure
 extension CryptoListViewController : CryptoListViewModelProtocol {
     func onReceiveResposeSuccess() {
-        self.refreshControl.endRefreshing()
+        self.refreshControl.endRefreshing() // End refreshing
         self.cryptoTableView.reloadData()
     }
     
