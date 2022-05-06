@@ -19,6 +19,11 @@ protocol CryptoListViewModelProtocol {
  */
 class CryptoListViewModel : NSObject {
     
+    let itemsPerBatch = 1
+    var offset = 0
+    var reachedEndOfItems = false
+    var refresh : Bool = false
+    
     var bitcoins = [Bitcoin]()
     var delegate : CryptoListViewModelProtocol? = nil
     var webServiceManager = Webservice()
@@ -33,17 +38,44 @@ class CryptoListViewModel : NSObject {
         let bitcoin = self.bitcoins[index]
         return CryptoViewModel(bitcoin)
     }
+    func getResultCountForURL(pageNumber : Int) -> String {
+        return "https://api.coingecko.com/api/v3/coins/markets?vs_currency=eur&order=market_cap_desc&per_page=10&page=\(pageNumber)&sparkline=false"
+    }
+    func resetLoadMoreCount(){
+        offset = 0
+        refresh = true
+    }
 }
 
 extension CryptoListViewModel {
+    
     func performUpdate(){
-        let url = URL(string: Constants.Urls.criptoURL)
-        print(Constants.Urls.criptoURL)
+        
+        // don't bother doing another db query if already have everything
+            guard !self.reachedEndOfItems else {
+                return
+            }
+        
+        let start = self.offset
+        let end = self.offset + self.itemsPerBatch
+        
+        print("Start \(start)")
+        print("End \(end)")
+        
+        let url = URL(string: self.getResultCountForURL(pageNumber: end))
+        print(self.getResultCountForURL(pageNumber: end))
         webServiceManager.getCryptoData(url: url, completionHandler: { bitCoinArray, error in
             DispatchQueue.main.async {
                 if let bitCoinArray = bitCoinArray {
-                    self.bitcoins = bitCoinArray
+                    if self.refresh {
+                        self.bitcoins = bitCoinArray
+                        self.refresh = false
+                    }else{
+                        self.bitcoins.append(contentsOf: bitCoinArray)
+                    }
+                    
                     self.delegate?.onReceiveResposeSuccess()
+                    self.offset += self.itemsPerBatch
                 }else if let error = error {
                     self.delegate?.onReceiveResponseFailure(error: error)
                 }

@@ -10,6 +10,7 @@
 		E183A83227ED496D00D9736B /* CryptoDemoUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E183A83127ED496D00D9736B /* CryptoDemoUITests.swift */; };
 		E183A84C27EDB2E900D9736B /* CryptoDemoTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E183A84B27EDB2E900D9736B /* CryptoDemoTests.swift */; };
 		E183A86B27EDBF9000D9736B /* api.coingecko.com.cer in Resources */ = {isa = PBXBuildFile; fileRef = E183A86A27EDBF9000D9736B /* api.coingecko.com.cer */; };
+		E19541B22822E2070027CB91 /* LoadMoreActivityIndicator.swift in Sources */ = {isa = PBXBuildFile; fileRef = E19541B12822E2070027CB91 /* LoadMoreActivityIndicator.swift */; };
 		E1DEAABB27EB3A1A00B28D81 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1DEAABA27EB3A1A00B28D81 /* AppDelegate.swift */; };
 		E1DEAABD27EB3A1A00B28D81 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1DEAABC27EB3A1A00B28D81 /* SceneDelegate.swift */; };
 		E1DEAAC227EB3A1B00B28D81 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E1DEAAC027EB3A1B00B28D81 /* Main.storyboard */; };
@@ -51,6 +52,7 @@
 		E183A84B27EDB2E900D9736B /* CryptoDemoTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CryptoDemoTests.swift; sourceTree = "<group>"; };
 		E183A84D27EDB2E900D9736B /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		E183A86A27EDBF9000D9736B /* api.coingecko.com.cer */ = {isa = PBXFileReference; lastKnownFileType = file; path = api.coingecko.com.cer; sourceTree = "<group>"; };
+		E19541B12822E2070027CB91 /* LoadMoreActivityIndicator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadMoreActivityIndicator.swift; sourceTree = "<group>"; };
 		E1DEAAB727EB3A1A00B28D81 /* CryptoDemo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CryptoDemo.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		E1DEAABA27EB3A1A00B28D81 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		E1DEAABC27EB3A1A00B28D81 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -199,6 +201,7 @@
 				E1DEAAE527EB454700B28D81 /* Constants.swift */,
 				E1DEAAE827EB4E7F00B28D81 /* Utility+Extension.swift */,
 				E1DEAAF227EB6FCF00B28D81 /* Reachability.swift */,
+				E19541B12822E2070027CB91 /* LoadMoreActivityIndicator.swift */,
 			);
 			path = Utils;
 			sourceTree = "<group>";
@@ -357,6 +360,7 @@
 				E1DEAADA27EB3CFE00B28D81 /* CryptoListViewController.swift in Sources */,
 				E1DEAAE627EB454700B28D81 /* Constants.swift in Sources */,
 				E1DEAAEC27EB6B3E00B28D81 /* CryptoViewModel.swift in Sources */,
+				E19541B22822E2070027CB91 /* LoadMoreActivityIndicator.swift in Sources */,
 				E1DEAADD27EB3F6600B28D81 /* Webservice.swift in Sources */,
 				E1DEAAE927EB4E7F00B28D81 /* Utility+Extension.swift in Sources */,
 				E1DEAAF327EB6FCF00B28D81 /* Reachability.swift in Sources */,

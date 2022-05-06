@@ -16,6 +16,8 @@ class CryptoListViewController: UIViewController {
     @IBOutlet weak var cryptoTableView: UITableView!
     private var cryptoListVM : CryptoListViewModel!
     let refreshControl = UIRefreshControl()
+    fileprivate var activityIndicator: LoadMoreActivityIndicator!
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -28,6 +30,8 @@ class CryptoListViewController: UIViewController {
         cryptoTableView.addSubview(refreshControl)
         // Checking the network connectivity
         Reachability.isConnectedToNetwork() ? cryptoListVM.performUpdate() : displayAlert(message: Constants.AlertValues.reachabilityMessage, title: Constants.AlertValues.reachabilityTitle)
+        
+        activityIndicator = LoadMoreActivityIndicator(scrollView: cryptoTableView, spacingFromLastCell: 10, spacingFromLastCellWhenLoadMoreActionStart: 60)
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -37,6 +41,8 @@ class CryptoListViewController: UIViewController {
     
     // Selector method for refreshing the crypto currancy list. Used for refresh controller
     @objc private func refreshCryptoListData(_ sender: Any) {
+        // Resetting load more count
+        cryptoListVM.resetLoadMoreCount()
         // Checking network connectivity and calling the setup method
         Reachability.isConnectedToNetwork() ? cryptoListVM.performUpdate() : displayAlert(message: Constants.AlertValues.reachabilityMessage, title: Constants.AlertValues.reachabilityTitle)
     }
@@ -53,6 +59,10 @@ class CryptoListViewController: UIViewController {
         let selectedRow = indexPath?.row
         // Setting up the bitcoin model property declared in CryptoDetailsViewController
         cryptoDetailsVC.bitcoin = self.cryptoListVM.bitcoins[selectedRow!]
+    }
+    
+    func loadMore(){
+        cryptoListVM.performUpdate()
     }
 }
 
@@ -71,12 +81,28 @@ extension CryptoListViewController : UITableViewDelegate, UITableViewDataSource 
         }
         let cryptoVM = self.cryptoListVM.bitcoins[indexPath.row]
         cell.configureCell(cellData: cryptoVM)
+        if indexPath.row == self.cryptoListVM.bitcoins.count - 1 {
+//                self.loadMore()
+            }
+        
         return cell
     }
     
     public func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         self.performSegue(withIdentifier: Constants.CommonStrings.identifierString, sender: tableView)
     }
+    
+    func scrollViewDidScroll(_ scrollView: UIScrollView) {
+            activityIndicator.start {
+                DispatchQueue.global(qos: .utility).async {
+                    sleep(3)
+                    self.loadMore()
+                    DispatchQueue.main.async { [weak self] in
+                        self?.activityIndicator.stop()
+                    }
+                }
+            }
+        }
 }
 
 // Extension for delegate methods of CryptoListViewModelProtocol - response success/failure

@@ -13,7 +13,7 @@ import Foundation
 struct Constants {
     // Providing URL to get the list of Crypto currency Rates
     struct Urls {
-        static let criptoURL = "https://api.coingecko.com/api/v3/coins/markets?vs_currency=eur&order=market_cap_desc&per_page=100&page=1&sparkline=false"
+        static let criptoURL = "https://api.coingecko.com/api/v3/coins/markets?vs_currency=eur&order=market_cap_desc&per_page=10&page=1&sparkline=false"
     }
     
     // Providing string values used in Alert
